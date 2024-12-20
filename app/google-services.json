@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "118768056501",
+    "project_id": "itnews-88162",
+    "storage_bucket": "itnews-88162.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:118768056501:android:dce69b754267be31a0e6fc",
+        "android_client_info": {
+          "package_name": "com.minhky.itnews.dev.debug"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDaEtTCJPiP5KYrA-bxRbIY5ITuzh10Pvo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
