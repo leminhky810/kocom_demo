@@ -18,15 +18,10 @@ import com.minhky.itnews.ui.component.Toolbar
 
 @Composable
 fun HomeScreen(
-
-    modifier: Modifier = Modifier
-        .fillMaxSize()
-        .background(Color.Red)
-
+    modifier: Modifier
 ) {
-
     Column (modifier = modifier) {
-        Toolbar()
+        Toolbar(shouldShowBackButton = false)
         val navController = rememberNavController()
         NavHost(navController = navController, startDestination = ListUserScreen) {
             composable<ListUserScreen> {

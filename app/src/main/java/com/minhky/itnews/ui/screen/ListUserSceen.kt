@@ -24,8 +24,8 @@ object ListUserScreen
 @Composable
 fun ListUserScreen(modifier: Modifier = Modifier,   viewModel: ListUserViewModel = hiltViewModel<ListUserViewModel>()) {
 
-    val listUserUIState by viewModel.listUserUIState.collectAsStateWithLifecycle()
-    Column (modifier.fillMaxSize().background(color = androidx.compose.ui.graphics.Color.Green)) {
+    val listUserUIState by viewModel.state.collectAsStateWithLifecycle()
+    Column (modifier.fillMaxSize()) {
         if(listUserUIState is ListUserUIState.Success){
             LazyColumn {
                 items((listUserUIState as ListUserUIState.Success).userList) { user ->
@@ -33,7 +33,6 @@ fun ListUserScreen(modifier: Modifier = Modifier,   viewModel: ListUserViewModel
                 }
             }
         }
-
 
     }
 }

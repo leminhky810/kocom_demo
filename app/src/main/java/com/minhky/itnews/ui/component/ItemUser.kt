@@ -26,11 +26,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
+import coil.compose.AsyncImage
 import com.minhky.itnews.R
+import com.minhky.itnews.database.model.UserEntity
 import com.minhky.itnews.network.model.UserResponse
 
 @Composable
-fun ItemUser(modifier: Modifier = Modifier, item : UserResponse) {
+fun ItemUser(modifier: Modifier = Modifier, item : UserEntity) {
     Card(
         shape = RoundedCornerShape(5.dp),
         modifier = modifier
@@ -56,13 +58,12 @@ fun ItemUser(modifier: Modifier = Modifier, item : UserResponse) {
                 Card(
                     shape = RoundedCornerShape(5.dp),
                 ) {
-                    Image(
-
-                        painter = painterResource(id = R.drawable.img_ava), // Replace with your image resource
+                    AsyncImage(
+                        model = item.avatarUrl, // Replace with your image resource
                         contentDescription = "Rounded Corner Image",
                         modifier = Modifier
-                            .size(80.dp)
-                            .background(Color.LightGray)
+                            .size(120.dp)
+                            .background(Color(0xFFe3dede))
                             .padding(2.dp)
                             .clip(CircleShape), // Rounded corners with 16dp radius
                         contentScale = ContentScale.FillBounds // Scale the image to fill the bounds
@@ -80,7 +81,7 @@ fun ItemUser(modifier: Modifier = Modifier, item : UserResponse) {
                     height = Dimension.fillToConstraints
 
                 }) {
-                Text(item.login?:"", textAlign = TextAlign.Start)
+                Text(item.name?:"", textAlign = TextAlign.Start)
                 Spacer(modifier = Modifier.height(5.dp))
                 HorizontalDivider(
                     modifier = Modifier.fillMaxWidth(), // Full-width line
@@ -92,7 +93,7 @@ fun ItemUser(modifier: Modifier = Modifier, item : UserResponse) {
                     Modifier,
                     "LinkedProfile",
                     linkText = listOf("LinkedProfile"),
-                    hyperlinks = listOf(item.url?:"")
+                    hyperlinks = listOf(item.linkedURL?:"")
                 )
             }
 

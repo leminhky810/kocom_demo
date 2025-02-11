@@ -33,27 +33,30 @@ import androidx.compose.ui.unit.dp
 fun Toolbar(
     modifier: Modifier = Modifier
         .fillMaxWidth(1f)
-        .height(45.dp)
-        .background(Color.Yellow)
+        .height(45.dp),
+    shouldShowBackButton : Boolean
 ) {
     ConstraintLayout(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .padding(8.dp),
     ) {
         val (button, text) = createRefs()
-        IconButton(
-            onClick = { },
-            modifier = Modifier.constrainAs(text) {
-                top.linkTo(parent.top)
-                bottom.linkTo(parent.bottom)
-                start.linkTo(parent.start)
+        if (shouldShowBackButton){
+            IconButton(
+                onClick = { },
+                modifier = Modifier.constrainAs(text) {
+                    top.linkTo(parent.top)
+                    bottom.linkTo(parent.bottom)
+                    start.linkTo(parent.start)
+                }
+            ) {
+                Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
             }
-        ) {
-            Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
         }
 
-        Text( text = "J97", textAlign = TextAlign.Center,modifier = Modifier.constrainAs(button) {
+
+        Text( text = "GitHub Users", textAlign = TextAlign.Center,modifier = Modifier.constrainAs(button) {
             top.linkTo(parent.top)
             bottom.linkTo(parent.bottom)
             start.linkTo(parent.start)
