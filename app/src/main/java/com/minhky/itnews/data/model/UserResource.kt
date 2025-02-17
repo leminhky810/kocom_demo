@@ -8,3 +8,5 @@ fun UserResponse.toUserEntity(): UserEntity = UserEntity(
     avatarUrl = avatarUrl ?: "",
     linkedURL = htmlUrl ?: ""
 )
+
+

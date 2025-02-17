@@ -6,6 +6,8 @@ import com.minhky.itnews.core.Dispatcher
 import com.minhky.itnews.data.model.toUserEntity
 import com.minhky.itnews.database.UserDao
 import com.minhky.itnews.database.model.UserEntity
+import com.minhky.itnews.database.model.toUser
+import com.minhky.itnews.model.User
 import com.minhky.itnews.network.UserNetworkDataSource
 import com.minhky.itnews.network.model.UserResponse
 import kotlinx.coroutines.CoroutineDispatcher
@@ -21,8 +23,8 @@ class OfflineFirstUserRepository @Inject constructor(
     @Dispatcher(AppDispatcher.IO) private val ioDispatcher: CoroutineDispatcher,
 ) : ListUserRepository {
 
-    override suspend fun fetchUser(numberOfUser: Int, since: Int): Flow<List<UserEntity>> {
-        return withContext(ioDispatcher){
+    override suspend fun fetchUser(numberOfUser: Int, since: Int): Flow<List<User>> {
+         return  withContext(ioDispatcher){
             userDao.getListUser().onEach { userList ->
                 if (userList.isEmpty()){
                     userNetworkDataSource.getUsers(30, 0).map {
@@ -31,8 +33,8 @@ class OfflineFirstUserRepository @Inject constructor(
                         userDao.insertOrReplaceUser(it)
                     }
                 }
-
-
+            }.map { listUser ->
+                listUser.map { it.toUser() }
             }
         }
     }

@@ -80,6 +80,11 @@ dependencies {
     ksp(libs.room.compiler)
     implementation(libs.room.runtime)
     implementation(libs.room.pagging)
+
+    implementation(libs.androidx.paging.runtime)
+    testImplementation(libs.androidx.paging.common)
+    implementation(libs.androidx.paging.compose)
+
     implementation(libs.kotlinx.coroutines.guava)
     implementation(libs.coil.kt)
     implementation(libs.coil.kt.compose)

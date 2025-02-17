@@ -29,10 +29,11 @@ import androidx.constraintlayout.compose.Dimension
 import coil.compose.AsyncImage
 import com.minhky.itnews.R
 import com.minhky.itnews.database.model.UserEntity
+import com.minhky.itnews.model.User
 import com.minhky.itnews.network.model.UserResponse
 
 @Composable
-fun ItemUser(modifier: Modifier = Modifier, item : UserEntity) {
+fun ItemUser(modifier: Modifier = Modifier, item : User) {
     Card(
         shape = RoundedCornerShape(5.dp),
         modifier = modifier
