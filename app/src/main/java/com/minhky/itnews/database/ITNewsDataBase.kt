@@ -15,6 +15,6 @@ import com.minhky.itnews.database.model.UserEntity
 )
 
 
-internal abstract class ITNewsDataBase : RoomDatabase() {
+abstract class ITNewsDataBase : RoomDatabase() {
     abstract fun userDao(): UserDao
 }

@@ -10,6 +10,7 @@ import io.ktor.client.plugins.HttpTimeout
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.defaultRequest
 import io.ktor.client.request.header
+import io.ktor.http.HttpHeaders
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import javax.inject.Singleton
@@ -17,6 +18,8 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 internal object NetworkModule {
+
+    const val token = "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" // Thay bằng token của bạn
 
     @Provides
     @Singleton
@@ -45,6 +48,7 @@ internal object NetworkModule {
             defaultRequest {
                 url("https://api.github.com/users") // Set the base URL
                 header("Accept", "application/json;charset=utf-8 ") // Add common headers if needed
+                header(HttpHeaders.Authorization, "token $token")
             }
         }
     }

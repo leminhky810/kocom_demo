@@ -1,5 +1,6 @@
 package com.minhky.itnews.domain
 
+import androidx.paging.PagingData
 import com.minhky.itnews.data.ListUserRepository
 import com.minhky.itnews.database.model.UserEntity
 import com.minhky.itnews.database.model.toUser
@@ -13,7 +14,7 @@ import javax.inject.Inject
 class FetchListUserUseCase @Inject constructor(
     private val listUserRepository: ListUserRepository,
 ) {
-     suspend operator fun invoke(numberOfUser: Int, since: Int): Flow<List<User>> {
-        return listUserRepository.fetchUser(numberOfUser, since)
+      operator fun invoke(): Flow<PagingData<User>> {
+        return listUserRepository.fetchUser()
     }
 }

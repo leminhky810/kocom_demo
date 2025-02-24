@@ -104,8 +104,7 @@ dependencies {
     androidTestImplementation(libs.androidx.navigation.testing)
     androidTestImplementation(libs.kotlin.test)
 
-    // Timber
-    implementation(libs.timber)
+
 }
 
 dependencyGuard {

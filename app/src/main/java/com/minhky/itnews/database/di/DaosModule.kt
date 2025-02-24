@@ -16,4 +16,6 @@ internal object DaosModule {
         database: ITNewsDataBase,
     ): UserDao = database.userDao()
 
+
+
 }

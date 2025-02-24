@@ -2,6 +2,10 @@ package com.minhky.itnews.ui.screen.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.Pager
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
+import com.minhky.itnews.database.model.UserEntity
 import com.minhky.itnews.domain.FetchListUserUseCase
 import com.minhky.itnews.model.User
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -13,29 +17,21 @@ import javax.inject.Inject
 
 
 @HiltViewModel
-class ListUserViewModel @Inject constructor(private val fetchListUserUseCase: FetchListUserUseCase) : ViewModel() {
-    private val _listUserUIState  : MutableStateFlow<ListUserUIState> = MutableStateFlow(ListUserUIState.Loading)
-    val listUserState: StateFlow<ListUserUIState> = this._listUserUIState.asStateFlow()
-    init {
-        fetchListUser()
-    }
-
-
-    private fun fetchListUser() {
-        viewModelScope.launch {
-                fetchListUserUseCase.invoke(30, 100).collect {
-                    this@ListUserViewModel._listUserUIState.value = ListUserUIState.Success(it)
-                }
-
-        }
-    }
-
+class ListUserViewModel @Inject constructor(
+    private val fetchListUserUseCase: FetchListUserUseCase,
+    pager: Pager<Int,UserEntity>
+) :
+    ViewModel() {
+    val userPaging = fetchListUserUseCase.invoke().cachedIn(viewModelScope)
+    //val userPaging = fetchListUserUseCase.invoke().cachedIn(viewModelScope)
 
 }
+
 sealed interface ListUserUIState {
 
     data class Success(
-        val userList: List<User>,
+        val userList:
+        PagingData<User>,
     ) : ListUserUIState
 
     data object Loading : ListUserUIState
@@ -45,7 +41,6 @@ sealed interface ListUserUIState {
 
 
     data object NotShown : ListUserUIState
-
 
 
 }
