@@ -12,7 +12,6 @@ import javax.inject.Singleton
 
 
 
-const val token = "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" // Thay bằng token của bạn
 
 @Singleton
 class KtorNetworkDataSource  @Inject constructor(private val httpClient: HttpClient): UserNetworkDataSource {
