@@ -7,6 +7,7 @@ import io.ktor.client.request.get
 import io.ktor.http.ContentType
 import io.ktor.http.HttpHeaders
 import io.ktor.http.headers
+import kotlinx.coroutines.delay
 import javax.inject.Inject
 import javax.inject.Singleton
 

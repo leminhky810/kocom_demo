@@ -15,11 +15,15 @@ interface UserDao {
     @Query("SELECT * FROM User")
     fun getUser(): List<UserEntity>
 
-    @Upsert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun upsertAll(beers: List<UserEntity>)
 
-    @Query("DELETE FROM user WHERE name = :query")
-    suspend fun deleteByQuery(query: String)
+    @Query("DELETE FROM User")
+    suspend fun clearAll()
+
+    @Query("SELECT COUNT(*) FROM User")
+    suspend fun count(): Int
+
 
     @Query("SELECT * FROM User")
     fun pagingSource(): PagingSource<Int, UserEntity>

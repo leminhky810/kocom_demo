@@ -4,6 +4,7 @@ import com.minhky.itnews.database.model.UserEntity
 import com.minhky.itnews.network.model.UserResponse
 
 fun UserResponse.toUserEntity(): UserEntity = UserEntity(
+    id = id ?: -1,
     name = login ?: "",
     avatarUrl = avatarUrl ?: "",
     linkedURL = htmlUrl ?: ""

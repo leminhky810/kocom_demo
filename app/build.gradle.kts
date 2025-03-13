@@ -7,6 +7,7 @@ import org.gradle.kotlin.dsl.test
 
 plugins {
     alias(libs.plugins.project.android.application)
+    alias(libs.plugins.project.android.room)
     alias(libs.plugins.project.android.application.compose)
     alias(libs.plugins.project.android.application.flavors)
     alias(libs.plugins.project.android.application.firebase)
@@ -14,12 +15,16 @@ plugins {
     alias(libs.plugins.kotlin.serialization)
 }
 
+room {
+    schemaDirectory("$projectDir/schemas")
+}
 android {
     namespace = "com.minhky.itnews"
     defaultConfig {
         applicationId = "com.minhky.itnews"
         versionCode = 1
         versionName = "1.0"
+
     }
 
     signingConfigs {
@@ -34,7 +39,7 @@ android {
     buildTypes {
         debug {
             applicationIdSuffix = AppBuildType.DEBUG.applicationIdSuffix
-            signingConfig = signingConfigs["config"]
+//            signingConfig = signingConfigs["config"]
         }
         release {
             isMinifyEnabled = true

@@ -9,8 +9,8 @@ import com.minhky.itnews.model.User
     tableName = "user",
 )
 data class UserEntity(
-    @PrimaryKey(autoGenerate = true)
-    val id: Int = 0,
+    @PrimaryKey
+    val id: Int ,
     @ColumnInfo(defaultValue = "")
     val name: String,
     @ColumnInfo(defaultValue = "")

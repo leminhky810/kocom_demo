@@ -25,9 +25,6 @@ class OfflineFirstUserRepository
 
     override fun fetchUser(): Flow<PagingData<User>> {
         return pager.flow
-            .onEach {
-                Log.d("Paging_Log", "paggingOnEach: ")
-            }// Type is Flow<PagingData<User>>.
             .map { pagingData ->
                 pagingData.map { user ->
                     user.toUser()

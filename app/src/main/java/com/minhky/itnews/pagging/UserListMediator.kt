@@ -26,6 +26,9 @@ class UserListMediator @Inject constructor(
     private val database: ITNewsDataBase,
     private val networkService: UserNetworkDataSource
 ) : RemoteMediator<Int, UserEntity>() {
+
+    private var initialLoadCompleted = false
+
     override suspend fun load(
         loadType: LoadType,
         state: PagingState<Int, UserEntity>
@@ -37,14 +40,14 @@ class UserListMediator @Inject constructor(
                     1
                 }
                 LoadType.PREPEND -> {
-                    Log.d("Paging_Log", "LoadType : REFRESH ")
+                    Log.d("Paging_Log", "LoadType : PREPEND ")
                    return MediatorResult.Success(endOfPaginationReached = true)
                 }
                 LoadType.APPEND -> {
                     Log.d("Paging_Log", "LoadType : APPEND ")
                     val lastItem = state.lastItemOrNull()
                     if (lastItem == null) {
-                        1
+                        state.config.pageSize+1
                     } else {
                         lastItem.id + 1
                     }
@@ -54,16 +57,14 @@ class UserListMediator @Inject constructor(
             val response = networkService.getUsers(
                 state.config.pageSize, loadKey
             )
+            val userEntities = response.map(UserResponse::toUserEntity)
 
             database.withTransaction {
                 if (loadType == LoadType.REFRESH) {
-                    database.userDao().deleteByQuery("")
+                    database.userDao().clearAll()
                 }
-                database.userDao().upsertAll(response.map(UserResponse::toUserEntity))
+                database.userDao().upsertAll(userEntities)
             }
-
-
-
             MediatorResult.Success(
                 endOfPaginationReached = false
             )

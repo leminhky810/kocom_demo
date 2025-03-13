@@ -34,13 +34,10 @@ internal object PaggingModule {
     @OptIn(ExperimentalPagingApi::class)
     @Provides
     @Singleton
-    fun provideBeerPager(itDatabase: ITNewsDataBase, networkService:UserNetworkDataSource): Pager<Int, UserEntity>  {
+    fun provideBeerPager(itDatabase: ITNewsDataBase,userListMediator: UserListMediator): Pager<Int, UserEntity>  {
         return Pager(
             config = PagingConfig(pageSize = 30),
-            remoteMediator = UserListMediator(
-                database = itDatabase,
-                networkService = networkService
-            ),
+            remoteMediator = userListMediator,
             pagingSourceFactory = {
                 itDatabase.userDao().pagingSource()
             }
